@@ -4,6 +4,7 @@ const {
     read: findUsers,
     create: createUser,
     readOne: findUser,
+    delete: destroyUser,
   } = require("../controllers/user");
 const { 
       register, 
@@ -13,13 +14,13 @@ const { auth } = require("../middleware/auth");
   
   // User Routes
   route.get("/users", findUsers);
-  route.get("/user", auth, findUser); //PRIVATE
   route.post("/users", createUser);
+  route.get("/user", auth, findUser); //PRIVATE
+  route.delete("/user",destroyUser);
   
   // Authentication Routes
   route.post("/register", register);
   route.post("/login", login);
-
 
 
   module.exports = route;

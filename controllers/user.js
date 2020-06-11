@@ -38,3 +38,18 @@ exports.readOne = async (req, res) => {
         console.log(error);
     }
 };
+
+exports.delete = async (req, res) => {
+    try {
+        const { id } = req.body;
+        const user = await User.destroy({
+            where: {
+                id 
+            }
+        });
+        res.send({message: 'success deleting user with id: '+id});
+    } 
+    catch (error) {
+        console.log(error);
+    }
+};
