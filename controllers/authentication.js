@@ -80,6 +80,11 @@ exports.register = async (req, res) => {
         address: Joi.string()
             .min(6)
             .required(),
+        roleId: Joi.number()
+            .integer()
+            .min(1)
+            .max(2)
+            .required(),     
         });
 
         //Register error, input not met requirement

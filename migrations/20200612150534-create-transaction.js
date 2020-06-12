@@ -1,34 +1,35 @@
 'use strict';
 module.exports = {
   up: (queryInterface, Sequelize) => {
-    return queryInterface.createTable('Episodes', {
+    return queryInterface.createTable('Transactions', {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      title: {
-        allowNull: false,
-        type: Sequelize.STRING
+      startDate: {
+        type: Sequelize.DATE
       },
-      thumbnailEp: {
-        allowNull: false,
-        type: Sequelize.STRING
+      dueDate: {
+        type: Sequelize.DATE
       },
-      linkEp: {
-        allowNull: false,
-        type: Sequelize.STRING
-      },
-      filmId: {
+      userId: {
         allowNull: false,
         type: Sequelize.INTEGER,
         references: {
-          model: "Films",
+          model: "Users",
           key: "id",
         },
         onUpdate: "CASCADE",
         onDelete: "CASCADE",
+      },
+      attach: {
+        type: Sequelize.STRING
+      },
+      status: {
+        allowNull: false,
+        type: Sequelize.BOOLEAN
       },
       createdAt: {
         allowNull: false,
@@ -41,6 +42,6 @@ module.exports = {
     });
   },
   down: (queryInterface, Sequelize) => {
-    return queryInterface.dropTable('Episodes');
+    return queryInterface.dropTable('Transactions');
   }
 };

@@ -33,6 +33,19 @@ module.exports = {
         allowNull: false,
         type: Sequelize.STRING
       },
+      subscribe: {
+        type: Sequelize.BOOLEAN
+      },
+      roleId: {
+        allowNull: false,
+        type: Sequelize.INTEGER,
+        references: {
+          model: "Roles",
+          key: "id",
+        },
+        onUpdate: "CASCADE",
+        onDelete: "CASCADE",
+      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE

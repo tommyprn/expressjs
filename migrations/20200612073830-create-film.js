@@ -9,12 +9,15 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       title: {
+        allowNull: false,
         type: Sequelize.STRING
       },
       thumbnail: {
+        allowNull: false,
         type: Sequelize.STRING
       },
       year: {
+        allowNull: false,
         type: Sequelize.INTEGER
       },
       categoryId: {
@@ -28,6 +31,7 @@ module.exports = {
         onDelete: "CASCADE",
       },
       description: {
+        allowNull: false,
         type: Sequelize.STRING
       },
       createdAt: {

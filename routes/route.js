@@ -2,7 +2,6 @@ const express = require ('express');
 const route = express.Router();
 const {
   read: findUsers,
-  create: createUser,
   readOne: findUser,
   delete: destroyUser
 } = require("../controllers/user");
@@ -31,13 +30,19 @@ const {
   update: patchEpisode,
   delete: destroyEpisode
 }= require("../controllers/episode");
+const {
+  read: findTransactions,
+  create: createTransactions,    
+  update: patchTransaction,
+  delete: destroyTransaction
+}= require("../controllers/Transaction");
   
+//==========================================================================
 
   // User Routes
   route.get("/users", findUsers);
-  route.post("/users", createUser);
   route.get("/user", auth, findUser); //PRIVATE
-  route.delete("/user",destroyUser);
+  route.delete("/user",auth, destroyUser);
   
   // Authentication Routes
   route.post("/register", register);
@@ -64,5 +69,9 @@ const {
   route.delete("/episode", auth, destroyEpisode);
 
   //Transaction route
+  route.get("/transactions", findTransactions);
+  route.post("/transactions", createTransactions);
+  route.patch("/transaction", patchTransaction);
+  route.delete("/transaction", destroyTransaction);
 
   module.exports = route;

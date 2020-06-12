@@ -6,10 +6,16 @@ module.exports = (sequelize, DataTypes) => {
     password: DataTypes.STRING,
     gender: DataTypes.ENUM('Male','Female'),
     phone: DataTypes.INTEGER,
-    address: DataTypes.STRING
+    address: DataTypes.STRING,
+    subscribe: DataTypes.BOOLEAN
   }, {});
   User.associate = function(models) {
-    // associations can be defined here
+    User.belongsTo(models.Role, {
+      foreignKey: {
+        name: "roleId",
+      },
+    });
+    User.hasOne(models.Transaction);
   };
   return User;
 };
