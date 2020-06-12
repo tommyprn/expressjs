@@ -24,6 +24,13 @@ const {
   update: patchCategory,
   delete: destroyCategory
 }= require("../controllers/category");
+const {
+  read: findEpisodes,
+  readOne: findEpisode,
+  create: createEpisodes,    
+  update: patchEpisode,
+  delete: destroyEpisode
+}= require("../controllers/episode");
   
 
   // User Routes
@@ -45,7 +52,17 @@ const {
 
   //Categories route
   route.get("/categories", findCategories);
-  route.post("/categories", createCategories);
-  route.patch("/category", patchCategory);
-  route.delete("/category", destroyCategory);
+  route.post("/categories", auth, createCategories);
+  route.patch("/category", auth, patchCategory);
+  route.delete("/category", auth, destroyCategory);
+
+  //Episodes route
+  route.get("/episodes", findEpisodes);
+  route.post("/episodes", auth, createEpisodes);
+  route.get("/episode", findEpisode);
+  route.patch("/episode", auth, patchEpisode);
+  route.delete("/episode", auth, destroyEpisode);
+
+  //Transaction route
+
   module.exports = route;

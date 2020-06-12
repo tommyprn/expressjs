@@ -13,6 +13,7 @@ module.exports = (sequelize, DataTypes) => {
         name: "categoryId",
       },
     });
+    Film.hasMany(models.Episode);
   };
   return Film;
 };
