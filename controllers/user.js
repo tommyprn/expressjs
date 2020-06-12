@@ -1,6 +1,5 @@
 const { User } = require("../models");
 
-
 exports.read = async (req, res) => {
     try {
         const users = await User.findAll();
@@ -21,7 +20,6 @@ exports.create = async (req, res) => {
         console.log(error);
     }
 };
-
 
 exports.readOne = async (req, res) => {
     try {
