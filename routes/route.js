@@ -18,7 +18,14 @@ const {
   update: patchFilm,
   delete: destroyFilm
 }= require("../controllers/film");
+const {
+  read: findCategories,
+  create: createCategories,    
+  update: patchCategory,
+  delete: destroyCategory
+}= require("../controllers/category");
   
+
   // User Routes
   route.get("/users", findUsers);
   route.post("/users", createUser);
@@ -37,6 +44,8 @@ const {
   route.delete("/film",auth, destroyFilm);
 
   //Categories route
-
-
+  route.get("/categories", findCategories);
+  route.post("/categories", createCategories);
+  route.patch("/category", patchCategory);
+  route.delete("/category", destroyCategory);
   module.exports = route;
