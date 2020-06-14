@@ -1,4 +1,5 @@
 const jwt = require("jsonwebtoken");
+const { User } = require('../models')
 
 exports.auth = (req, res, next) => {
     let header, token;
@@ -17,5 +18,31 @@ exports.auth = (req, res, next) => {
     
     catch (error) {
         res.status(400).send({ message: "This is not your ninja way!" });
+    }
+};
+
+exports.admin = async(req, res, next)=>{
+    {
+        try
+        {
+            const {id}=req.user
+            const user = await User.findOne({
+                where:{
+                    id
+                }
+            });
+
+            if(user.roleId === 1){
+                next()
+            }
+            else
+            {
+                res.status(400).send({ message: "This is beyond your bouondary!" });
+            }
+        }
+        catch(error){
+            console.log(error);
+            res.status(400).send({ message: "Something went wrong" });
+        }
     }
 };

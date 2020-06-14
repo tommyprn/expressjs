@@ -26,7 +26,7 @@ exports.create = async (req, res) => {
 
 exports.update = async (req, res) => {
     try {
-        const { id } = req.body;
+        const { id } = req.params;
         const check=await Category.findOne({
             where: { 
                 id 
@@ -61,7 +61,7 @@ exports.update = async (req, res) => {
 
 exports.delete = async (req, res) => {
     try {
-        const { id } = req.body;
+        const { id } = req.params;
         const category = await Category.destroy({
             where: {
                 id 

@@ -2,7 +2,7 @@ const { User, Role } = require("../models");
 
 exports.read = async (req, res) => {
     try {
-        const users = await User.findAll({
+        const user = await User.findAll({
             include: {
                 model: Role,
                 attributes: {
@@ -13,7 +13,7 @@ exports.read = async (req, res) => {
                 exclude: ["createdAt", "updatedAt", "RoleId", "roleId"]
             }
         });
-        res.send({ data: users });
+        res.send({ data: user});
     } 
     catch (error) {
         console.log(error);
@@ -22,7 +22,7 @@ exports.read = async (req, res) => {
 
 exports.readOne = async (req, res) => {
     try {
-        const { id } = req.user;
+        const { id } = req.params;
         const user = await User.findOne({
             include: {
                 model: Role,
@@ -47,7 +47,7 @@ exports.readOne = async (req, res) => {
 
 exports.delete = async (req, res) => {
     try {
-        const { id } = req.body;
+        const { id } = req.params;
         const user = await User.destroy({
             where: {
                 id 

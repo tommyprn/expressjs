@@ -28,7 +28,10 @@ exports.read = async (req, res) => {
 
 exports.create = async (req, res) => {
     try {
-        const film = await User.create(req.body);
+        const transaction = await Transaction.create({
+            ...req.body,
+            attach: req.file.filename
+        });
         res.send({ data: transaction });
     
     } catch (error) {
@@ -36,19 +39,23 @@ exports.create = async (req, res) => {
     }
 };
 
-exports.create = async (req, res) => {
-    try {
-        const transaction = await Transaction.create(req.body);
-        res.send({ data: transaction });
-    
-    } catch (error) {
-        console.log(error);
-    }
-};
+// startDate: req.body.startDate,
+// dueDate: req.body.deDate,
+// userId: req.body.userId,
+// attach: req.file === undefined ? "" : req.file.filename,
+// status: req.body.status
+// }).then(newTransaction => {
+// res.json({
+//     "status":"success",
+//     "message":"Transaction added",
+//     "data": newTransaction
+// })
+
+
 
 exports.update = async (req, res) => {
     try {
-        const { id } = req.body;
+        const { id } = req.params;
         const check=await Transaction.findOne({
             where: { 
                 id 
@@ -83,7 +90,7 @@ exports.update = async (req, res) => {
 
 exports.delete = async (req, res) => {
     try {
-        const { id } = req.body;
+        const { id } = req.params;
         const transaction = await Transaction.destroy({
             where: {
                 id 

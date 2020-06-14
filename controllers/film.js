@@ -22,7 +22,7 @@ exports.read = async (req, res) => {
 
 exports.readOne = async (req, res) => {
     try {
-        const { id } = req.body;
+        const { id } = req.params;
         const film = await Film.findOne({
             include: {
                 model: Category,
@@ -57,7 +57,7 @@ exports.create = async (req, res) => {
 
 exports.update = async (req, res) => {
     try {
-        const { id } = req.body;
+        const { id } = req.params;
         const check=await Film.findOne({
             where: { 
                 id 
@@ -98,7 +98,7 @@ exports.update = async (req, res) => {
 
 exports.delete = async (req, res) => {
     try {
-        const { id } = req.body;
+        const { id } = req.params;
         const film = await Film.destroy({
             where: {
                 id 
