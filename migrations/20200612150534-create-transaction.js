@@ -1,18 +1,18 @@
-'use strict';
+"use strict";
 module.exports = {
   up: (queryInterface, Sequelize) => {
-    return queryInterface.createTable('Transactions', {
+    return queryInterface.createTable("Transactions", {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER,
       },
       startDate: {
-        type: Sequelize.DATE
+        type: Sequelize.DATE,
       },
       dueDate: {
-        type: Sequelize.DATE
+        type: Sequelize.DATE,
       },
       userId: {
         allowNull: false,
@@ -25,23 +25,24 @@ module.exports = {
         onDelete: "CASCADE",
       },
       attach: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
       },
       status: {
         allowNull: false,
-        type: Sequelize.BOOLEAN
+        type: Sequelize.ENUM("Pending", "Approved", "Cancel"),
+        devaultValue: "pending",
       },
       createdAt: {
         allowNull: false,
-        type: Sequelize.DATE
+        type: Sequelize.DATE,
       },
       updatedAt: {
         allowNull: false,
-        type: Sequelize.DATE
-      }
+        type: Sequelize.DATE,
+      },
     });
   },
   down: (queryInterface, Sequelize) => {
-    return queryInterface.dropTable('Transactions');
-  }
+    return queryInterface.dropTable("Transactions");
+  },
 };

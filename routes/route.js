@@ -1,81 +1,76 @@
-const express = require ('express');
+const express = require("express");
 const route = express.Router();
+
 const {
   read: findUsers,
   readOne: findUser,
-  delete: destroyUser
+  delete: destroyUser,
 } = require("../controllers/user");
-const { 
-  register, 
-  login 
-} = require("../controllers/authentication");
-const { 
-  auth :auth, 
-  admin: admin
-} = require("../middleware/auth");
+const { register, login } = require("../controllers/authentication");
+const { auth: auth, admin: admin } = require("../middleware/auth");
 const {
   read: findFilms,
-  create: createFilm,    
+  create: createFilm,
   readOne: findFilm,
   update: patchFilm,
-  delete: destroyFilm
-}= require("../controllers/film");
+  delete: destroyFilm,
+} = require("../controllers/film");
 const {
   read: findCategories,
-  create: createCategories,    
+  create: createCategories,
   update: patchCategory,
-  delete: destroyCategory
-}= require("../controllers/category");
+  delete: destroyCategory,
+} = require("../controllers/category");
 const {
   read: findEpisodes,
   readOne: findEpisode,
-  create: createEpisodes,    
+  create: createEpisodes,
   update: patchEpisode,
-  delete: destroyEpisode
-}= require("../controllers/episode");
+  delete: destroyEpisode,
+} = require("../controllers/episode");
 const {
   read: findTransactions,
-  create: createTransactions,    
+  create: createTransactions,
   update: patchTransaction,
-  delete: destroyTransaction
-}= require("../controllers/Transaction");
-const { upload } = require ('../middleware/upload');
-  
+  delete: destroyTransaction,
+} = require("../controllers/Transaction");
+const { upload } = require("../middleware/upload");
+
 //============================================================
 
-  // User Routes
-  route.get("/users", findUsers);
-  route.get("/user/:id", auth, admin, findUser); //PRIVATE
-  route.delete("/user/:id", auth, admin, destroyUser);
-  
-  // Authentication Routes
-  route.post("/register", register);
-  route.post("/login", login);
+// User Routes
+route.get("/users", auth, admin, findUsers);
+route.get("/user/:id", findUser); //PRIVATE
+route.delete("/user/:id", auth, admin, destroyUser); //PRIVATE
 
-  //Film route
-  route.get("/films", findFilms);
-  route.post("/films", auth, admin, createFilm);
-  route.get("/film/:id", findFilm);
-  route.patch("/film/:id", auth, admin, patchFilm);
-  route.delete("/film/:id", auth, admin, destroyFilm);
+// Authentication Routes
+route.post("/register", register);
+route.post("/login", login);
 
-  //Categories route
-  route.get("/category", findCategories);
-  route.post("/category", auth, admin, createCategories);
-  route.patch("/category/:id", auth, admin, patchCategory);
-  route.delete("/category/:id", auth, admin, destroyCategory);
+//Film route
+route.get("/films", findFilms);
+route.post("/films", auth, admin, createFilm); //PRIVATE
+route.get("/film/:id", findFilm);
+route.patch("/film/:id", auth, admin, patchFilm); //PRIVATE
+route.delete("/film/:id", auth, admin, destroyFilm); //PRIVATE
 
-  //Episodes route
-  route.get("/film/:id/episodes", findEpisodes);
-  route.post("/episodes", auth, admin, createEpisodes);
-  route.get("/film/:filmId/episode/:episodeId", findEpisode);
-  route.patch("/episode/:id", auth, admin, patchEpisode);
-  route.delete("/episode/:id", auth, admin, destroyEpisode);
+//Categories route
+route.get("/category", findCategories);
+route.post("/category", auth, admin, createCategories); //PRIVATE
+route.patch("/category/:id", auth, admin, patchCategory); //PRIVATE
+route.delete("/category/:id", auth, admin, destroyCategory); //PRIVATE
 
-  //Transaction route
-  route.get("/transaction", auth, admin, findTransactions);
-  route.post("/transaction", auth, admin, upload, createTransactions);
-  route.patch("/transaction/:id", auth, admin, patchTransaction);
-  route.delete("/transaction/:id", auth, admin, destroyTransaction);
+//Episodes route
+route.get("/film/:id/episodes", findEpisodes);
+route.post("/episodes", createEpisodes); //PRIVATE
+route.get("/film/:filmId/episode/:episodeId", findEpisode);
+route.patch("/episode/:id", auth, admin, patchEpisode); //PRIVATE
+route.delete("/episode/:id", auth, admin, destroyEpisode); //PRIVATE
 
-  module.exports = route;
+//Transaction route
+route.get("/transaction", findTransactions); //PRIVATE
+route.post("/transaction", auth, upload, createTransactions);
+route.patch("/transaction/:id", auth, admin, patchTransaction); //PRIVATE
+route.delete("/transaction/:id", auth, admin, destroyTransaction); //PRIVATE
+
+module.exports = route;
